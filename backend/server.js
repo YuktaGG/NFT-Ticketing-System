@@ -44,13 +44,22 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/events', eventRoutes);
 app.use('/api/tickets', ticketRoutes);
 
+// Health check
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'OK',
+  });
+});
+
 // 404 Handler
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: 'API endpoint not found'
+    message: 'API endpoint not found',
   });
 });
+
 
 // Global Error Handler
 app.use(errorHandler);
