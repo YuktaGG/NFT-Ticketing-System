@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import QRCode from 'qrcode';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
@@ -200,6 +201,15 @@ const TicketPurchase = ({ event, walletAddress, onClose, onSuccess }) => {
             <h2>Purchase Successful!</h2>
             <p>Your NFT ticket has been minted</p>
 
+            <div style={styles.qrContainer}>
+              <img
+               src={ticket.ticket.qrCode}
+               alt="Ticket QR Code"
+               style={styles.qrImage}
+              />
+             <p style={styles.qrNote}>Save this QR code for event entry</p>
+            </div>
+
             <div style={styles.ticketDetails}>
               <div style={styles.detailRow}>
                 <span>Token ID:</span>
@@ -367,7 +377,25 @@ const styles = {
   link: {
     color: '#667eea',
     textDecoration: 'none'
-  }
+  },
+  qrContainer: {
+    background: '#f8f9fa',
+    padding: '20px',
+    borderRadius: '8px',
+    margin: '24px 0'
+  },
+  qrImage: {
+    width: '200px',
+    height: '200px',
+    display: 'block',
+    margin: '0 auto'
+  },
+  qrNote: {
+    color: '#666',
+    fontSize: '0.9em',
+    marginTop: '12px',
+    textAlign: 'center'
+}
 };
 
 export default TicketPurchase;
